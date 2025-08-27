@@ -457,7 +457,7 @@
                 <div class="download-stats">
                     <div class="stat">
                         <i class="fas fa-download"></i>
-                        <span>1次下载</span>
+                        <span>5次下载</span>
                     </div>
                     <div class="stat">
                         <i class="fas fa-calendar"></i>
@@ -526,7 +526,7 @@
             downloadButtons.forEach(button => {
                 button.addEventListener('click', function(e) {
                     e.preventDefault();
-                    alert('即将下载ArmsorPlus最新版本。在实际应用中，这里会链接到实际的下载文件。');
+                    <a href="https://github.com/LJRDE/ArmsorPlus/releases/download/0.2-f%2B/ArmsorPlus-0.2-f+.jar" class="btn btn-secondary">
                     // window.location.href = 'https://github.com/LJRDE/ArmsorPlus/releases/download/0.2-f%2B/ArmsorPlus-0.2-f+.jar';
                 });
             });
@@ -534,7 +534,7 @@
             // 模拟下载计数动画
             const downloadCount = document.querySelector('.download-stats .stat span');
             let count = 0;
-            const targetCount = 42175;
+            const targetCount = 5;
             const duration = 2000;
             const increment = targetCount / (duration / 16);
             
