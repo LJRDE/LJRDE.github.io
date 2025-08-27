@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #3498db;
-            --primary-dark: #2980b9;
+            --primary: #4a6fa5;
+            --primary-dark: #3a5a8a;
             --secondary: #2c3e50;
             --light: #ecf0f1;
             --text: #2c3e50;
@@ -16,6 +16,7 @@
             --success: #27ae60;
             --warning: #f39c12;
             --border: #e0e0e0;
+            --enchant: #9c59b6;
         }
         
         * {
@@ -63,9 +64,17 @@
             text-decoration: none;
         }
         
-        .logo-icon {
-            color: var(--primary);
+        .logo-text {
             font-size: 28px;
+            font-weight: bold;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-text span {
+            color: var(--primary);
+            font-weight: 700;
         }
         
         .nav-links {
@@ -193,7 +202,7 @@
         
         .feature-icon {
             font-size: 40px;
-            color: var(--primary);
+            color: var(--enchant);
             margin-bottom: 20px;
         }
         
@@ -207,10 +216,40 @@
             color: var(--text-light);
         }
         
+        /* 服务端支持区域 */
+        .servers-support {
+            padding: 60px 0;
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+        
+        .servers-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        
+        .server-item {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            min-width: 150px;
+            border: 1px solid var(--border);
+        }
+        
+        .server-item i {
+            font-size: 36px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
         /* 下载区域样式 */
         .download-section {
             padding: 80px 0;
-            background-color: #f8f9fa;
+            background-color: #fff;
             text-align: center;
         }
         
@@ -221,7 +260,7 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             max-width: 700px;
             margin: 0 auto;
-            border: 1px solid var(--border);
+            border: 2px solid var(--primary);
         }
         
         .version-badge {
@@ -240,20 +279,6 @@
             background-color: #f8f9fa;
             border-radius: 8px;
             border-left: 4px solid var(--primary);
-        }
-        
-        .download-stats {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 30px;
-            color: var(--text-light);
-        }
-        
-        .stat {
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
         
         /* 页脚样式 */
@@ -324,6 +349,28 @@
             .download-card {
                 padding: 30px;
             }
+            
+            .logo-text {
+                font-size: 22px;
+            }
+        }
+        
+        /* 附魔书动画 */
+        .enchantment-book {
+            display: inline-block;
+            font-size: 48px;
+            color: var(--enchant);
+            margin: 20px 0;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
         }
     </style>
 </head>
@@ -333,14 +380,13 @@
         <div class="container">
             <nav class="navbar">
                 <a href="#" class="logo">
-                    <i class="fas fa-dragon logo-icon"></i>
-                    ArmsorPlus
+                    <div class="logo-text">Armsor<span>Plus</span></div>
                 </a>
                 <div class="nav-links">
                     <a href="#">首页</a>
                     <a href="#">文档</a>
                     <a href="#">支持</a>
-                    <a href="#">社区</a>
+                    <a href="https://github.com/LJRDE/ArmsorPlus/issues">反馈</a>
                 </div>
             </nav>
         </div>
@@ -349,11 +395,14 @@
     <!-- 英雄区域 -->
     <section class="hero">
         <div class="container">
+            <div class="enchantment-book">
+                <i class="fas fa-book"></i>
+            </div>
             <h1>Minecraft RPG体验的革命性升级</h1>
-            <p>ArmsorPlus 是一款创新的 Minecraft 插件，它将 RPG 元素深度融入原版游戏中，提供超过 20 种独特的高级附魔和定制武器装备系统，还提供了自定义公海系统。无论您是服务器管理员寻求增强玩家体验，还是玩家渴望更丰富的战斗系统，ArmsorPlus 都是您的完美选择。</p>
+            <p>ArmsorPlus 是一款创新的 Minecraft 插件，它将 RPG 元素深度融入原版游戏中，提供超过 30 种独特的高级附魔和定制武器装备系统，还提供了自定义公海系统。无论您是服务器管理员寻求增强玩家体验，还是玩家渴望更丰富的战斗系统，ArmsorPlus 都是您的完美选择。</p>
             
             <div class="buttons">
-                <a href="#https://github.com/LJRDE/ArmsorPlus/releases" class="btn btn-primary">
+                <a href="https://github.com/LJRDE/ArmsorPlus/releases/download/0.2-f%2B/ArmsorPlus-0.2-f+.jar" class="btn btn-primary">
                     <i class="fas fa-download"></i>
                     下载最新版本
                 </a>
@@ -376,10 +425,10 @@
             <div class="feature-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-magic"></i>
+                        <i class="fas fa-book-open"></i>
                     </div>
                     <h3>高级附魔系统</h3>
-                    <p>提供30多种独特的高级附魔，从高级附魔到特殊装备为战斗添加全新维度。</p>
+                    <p>提供30多种独特的高级附魔，为战斗添加全新维度和策略选择。</p>
                 </div>
                 
                 <div class="feature-card">
@@ -394,8 +443,8 @@
                     <div class="feature-icon">
                         <i class="fas fa-water"></i>
                     </div>
-                    <h3>公海系统</h3>
-                    <p>创新的公海探索机制，公海宝箱等全新游戏内容。</p>
+                    <h3>内置公海系统</h3>
+                    <p>创新的公海探索机制，无需任何前置插件，添加海洋冒险和海底宝藏等全新游戏内容。</p>
                 </div>
                 
                 <div class="feature-card">
@@ -408,10 +457,10 @@
                 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-plug"></i>
+                        <i class="fas fa-gem"></i>
                     </div>
-                    <h3>广泛兼容</h3>
-                    <p>支持Paper、Leaves、Purpur等主流服务端，与大多数经济和权限插件无缝集成。</p>
+                    <h3>独特战利品</h3>
+                    <p>添加多种稀有武器和装备，让玩家有更多收集和探索的动力。</p>
                 </div>
                 
                 <div class="feature-card">
@@ -419,7 +468,34 @@
                         <i class="fas fa-code-branch"></i>
                     </div>
                     <h3>开源开发</h3>
-                    <p>采用GPL-3.0协议开源,持续更新并添加新功能。</p>
+                    <p>采用GPL-3.0协议开源，社区驱动开发，持续更新并添加新功能。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 服务端支持区域 -->
+    <section class="servers-support">
+        <div class="container">
+            <div class="section-title">
+                <h2>支持的服务端</h2>
+                <p>ArmsorPlus 专为现代Minecraft服务端优化</p>
+            </div>
+            
+            <div class="servers-grid">
+                <div class="server-item">
+                    <i class="fas fa-leaf"></i>
+                    <h3>Paper</h3>
+                </div>
+                
+                <div class="server-item">
+                    <i class="fas fa-leaf"></i>
+                    <h3>Leaves</h3>
+                </div>
+                
+                <div class="server-item">
+                    <i class="fas fa-feather-alt"></i>
+                    <h3>Purpur</h3>
                 </div>
             </div>
         </div>
@@ -434,9 +510,9 @@
             </div>
             
             <div class="download-card">
-                <span class="version-badge">最新版本: v0.2-f+</span>
+                <span class="version-badge">当前版本: v0.2-f+</span>
                 <h3>立即下载ArmsorPlus</h3>
-                <p>2025年最新稳定版本，包含所有RPG功能、高级附魔和公海系统。</p>
+                <p>专为Paper、Leaves和Purpur服务端优化的RPG体验增强插件。</p>
                 
                 <div class="license-info">
                     <i class="fas fa-balance-scale"></i>
@@ -444,7 +520,7 @@
                 </div>
                 
                 <div class="buttons">
-                    <a href="https://github.com/LJRDE/ArmsorPlus/releases" class="btn btn-primary">
+                    <a href="https://github.com/LJRDE/ArmsorPlus/releases/download/0.2-f%2B/ArmsorPlus-0.2-f+.jar" class="btn btn-primary">
                         <i class="fas fa-download"></i>
                         下载最新版本
                     </a>
@@ -452,17 +528,6 @@
                         <i class="fas fa-list"></i>
                         查看所有版本
                     </a>
-                </div>
-                
-                <div class="download-stats">
-                    <div class="stat">
-                        <i class="fas fa-download"></i>
-                        <span>5次下载</span>
-                    </div>
-                    <div class="stat">
-                        <i class="fas fa-calendar"></i>
-                        <span>更新于: 2025-8-27</span>
-                    </div>
                 </div>
             </div>
         </div>
@@ -497,8 +562,7 @@
                     <ul>
                         <li><a href="#">Discord</a></li>
                         <li><a href="https://github.com/LJRDE/ArmsorPlus">GitHub</a></li>
-                        <li><a href="#">论坛</a></li>
-                        <li><a href="#">反馈</a></li>
+                        <li><a href="https://github.com/LJRDE/ArmsorPlus/issues">反馈问题</a></li>
                     </ul>
                 </div>
                 
@@ -513,7 +577,7 @@
             </div>
             
             <div class="copyright">
-                <p>&copy; 2025-2205 ArmsorPlus项目。保留所有权利。遵循GPL-3.0开源协议。</p>
+                <p>&copy; 2025-2027 ArmsorPlus项目。保留所有权利。遵循GPL-3.0开源协议。</p>
             </div>
         </div>
     </footer>
@@ -525,40 +589,9 @@
             
             downloadButtons.forEach(button => {
                 button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    <a href="https://github.com/LJRDE/ArmsorPlus/releases/download/0.2-f%2B/ArmsorPlus-0.2-f+.jar" class="btn btn-secondary">
-                    // window.location.href = 'https://github.com/LJRDE/ArmsorPlus/releases/download/0.2-f%2B/ArmsorPlus-0.2-f+.jar';
+                    // 实际链接已设置，无需额外处理
                 });
             });
-            
-            // 模拟下载计数动画
-            const downloadCount = document.querySelector('.download-stats .stat span');
-            let count = 0;
-            const targetCount = 5;
-            const duration = 2000;
-            const increment = targetCount / (duration / 16);
-            
-            const updateCount = () => {
-                if (count < targetCount) {
-                    count += increment;
-                    downloadCount.textContent = Math.round(count).toLocaleString() + ' 次下载';
-                    requestAnimationFrame(updateCount);
-                } else {
-                    downloadCount.textContent = targetCount.toLocaleString() + ' 次下载';
-                }
-            };
-            
-            // 当下载区域进入视图时开始动画
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        updateCount();
-                        observer.disconnect();
-                    }
-                });
-            }, { threshold: 0.5 });
-            
-            observer.observe(document.querySelector('.download-section'));
         });
     </script>
 </body>
