@@ -3,596 +3,1148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ArmsorPlus - Minecraft RPG增强插件</title>
+    <title>ArmsorPlus - Minecraft RPG武器装备强化插件</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #4a6fa5;
-            --primary-dark: #3a5a8a;
-            --secondary: #2c3e50;
-            --light: #ecf0f1;
-            --text: #2c3e50;
-            --text-light: #7f8c8d;
-            --success: #27ae60;
-            --warning: #f39c12;
-            --border: #e0e0e0;
-            --enchant: #9c59b6;
+            --bg-dark: #0f0f1a;
+            --bg-card: #1a1a2e;
+            --bg-nav: #16162a;
+            --primary: #c084fc;
+            --primary-dim: #8b5cf6;
+            --gold: #fbbf24;
+            --gold-dim: #d97706;
+            --red: #ef4444;
+            --green: #22c55e;
+            --cyan: #22d3ee;
+            --text: #e2e8f0;
+            --text-dim: #94a3b8;
+            --border: #2a2a4a;
+            --enchant-bg: #1e1e3a;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            background-color: #fff;
+            background-color: var(--bg-dark);
             color: var(--text);
-            line-height: 1.6;
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.7;
+            overflow-x: hidden;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
-        
-        /* 导航栏样式 */
+
+        /* === 粒子背景 === */
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float-up linear infinite;
+        }
+        @keyframes float-up {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 0.4; }
+            90% { opacity: 0.4; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        }
+
+        /* === 导航 === */
         header {
-            background-color: #fff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background: rgba(22, 22, 42, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
             z-index: 100;
         }
-        
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 0;
+            padding: 14px 0;
         }
-        
         .logo {
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--secondary);
             text-decoration: none;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text);
         }
-        
-        .logo-text {
+        .logo i {
+            color: var(--gold);
             font-size: 28px;
-            font-weight: bold;
-            color: var(--secondary);
-            display: flex;
-            align-items: center;
         }
-        
-        .logo-text span {
+        .logo span {
             color: var(--primary);
-            font-weight: 700;
         }
-        
         .nav-links {
             display: flex;
-            gap: 25px;
+            gap: 8px;
+            flex-wrap: wrap;
         }
-        
         .nav-links a {
-            color: var(--text);
+            color: var(--text-dim);
             text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
             font-weight: 500;
-            transition: color 0.3s;
+            transition: all 0.3s;
         }
-        
         .nav-links a:hover {
-            color: var(--primary);
+            color: var(--text);
+            background: rgba(192, 132, 252, 0.1);
         }
-        
-        /* 英雄区域样式 */
-        .hero {
+
+        /* === 通用 === */
+        section {
+            position: relative;
+            z-index: 1;
             padding: 80px 0;
+        }
+        .section-title {
             text-align: center;
-            background: linear-gradient(to bottom, #f8f9fa, #fff);
+            margin-bottom: 50px;
         }
-        
-        .hero h1 {
-            font-size: 48px;
+        .section-title h2 {
+            font-size: 36px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .section-title p {
+            color: var(--text-dim);
+            max-width: 600px;
+            margin: 10px auto 0;
+            font-size: 16px;
+        }
+
+        /* === 英雄 === */
+        .hero {
+            padding: 100px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.08) 0%, transparent 60%);
+            animation: glow-pulse 6s ease-in-out infinite;
+        }
+        @keyframes glow-pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.6; }
+        }
+        .hero-icon {
+            font-size: 64px;
+            color: var(--primary);
             margin-bottom: 20px;
-            color: var(--secondary);
+            animation: levitate 3s ease-in-out infinite;
+            position: relative;
         }
-        
-        .hero p {
+        @keyframes levitate {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        .hero h1 {
+            font-size: 52px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--text), var(--primary), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+        .hero .subtitle {
             font-size: 20px;
-            color: var(--text-light);
+            color: var(--text-dim);
             max-width: 800px;
-            margin: 0 auto 40px;
+            margin: 0 auto 30px;
+            position: relative;
         }
-        
-        /* 按钮样式 */
+        .hero .version-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dim));
+            color: white;
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        .hero .badge-row {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        .hero .badge-row .badge {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--text-dim);
+        }
+        .hero .badge-row .badge i {
+            color: var(--gold);
+            margin-right: 6px;
+        }
+
         .buttons {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
+            gap: 16px;
             flex-wrap: wrap;
+            position: relative;
         }
-        
         .btn {
             padding: 16px 32px;
-            border-radius: 8px;
-            font-size: 18px;
+            border-radius: 12px;
+            font-size: 16px;
             font-weight: 600;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 10px;
             transition: all 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: none;
+            cursor: pointer;
         }
-        
         .btn-primary {
-            background-color: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dim));
             color: white;
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
         }
-        
         .btn-primary:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.5);
         }
-        
         .btn-secondary {
-            background-color: var(--light);
+            background: var(--bg-card);
             color: var(--text);
             border: 1px solid var(--border);
         }
-        
         .btn-secondary:hover {
-            background-color: #e8e8e8;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
         }
-        
-        /* 特性区域样式 */
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+            color: #1a1a2e;
+            box-shadow: 0 4px 20px rgba(251, 191, 36, 0.3);
+        }
+        .btn-gold:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(251, 191, 36, 0.5);
+        }
+
+        /* === Feature Cards === */
         .features {
-            padding: 80px 0;
-            background-color: #fff;
+            background: var(--bg-dark);
         }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .section-title h2 {
-            font-size: 36px;
-            color: var(--secondary);
-            margin-bottom: 15px;
-        }
-        
-        .section-title p {
-            color: var(--text-light);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
         .feature-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 24px;
         }
-        
         .feature-card {
-            background: #fff;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s;
+            background: var(--bg-card);
             border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s;
         }
-        
         .feature-card:hover {
-            transform: translateY(-5px);
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(139, 92, 246, 0.1);
         }
-        
-        .feature-icon {
-            font-size: 40px;
-            color: var(--enchant);
-            margin-bottom: 20px;
-        }
-        
-        .feature-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: var(--secondary);
-        }
-        
-        .feature-card p {
-            color: var(--text-light);
-        }
-        
-        /* 服务端支持区域 */
-        .servers-support {
-            padding: 60px 0;
-            background-color: #f8f9fa;
-            text-align: center;
-        }
-        
-        .servers-grid {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-            margin-top: 40px;
-        }
-        
-        .server-item {
-            background: white;
-            padding: 20px 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            min-width: 150px;
-            border: 1px solid var(--border);
-        }
-        
-        .server-item i {
+        .feature-card .icon {
             font-size: 36px;
-            color: var(--primary);
-            margin-bottom: 15px;
+            margin-bottom: 16px;
         }
-        
-        /* 下载区域样式 */
-        .download-section {
-            padding: 80px 0;
-            background-color: #fff;
-            text-align: center;
-        }
-        
-        .download-card {
-            background: #fff;
-            border-radius: 10px;
-            padding: 50px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            max-width: 700px;
-            margin: 0 auto;
-            border: 2px solid var(--primary);
-        }
-        
-        .version-badge {
-            display: inline-block;
-            background-color: var(--success);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-        
-        .license-info {
-            margin: 20px 0;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            border-left: 4px solid var(--primary);
-        }
-        
-        /* 页脚样式 */
-        footer {
-            background-color: var(--secondary);
-            color: white;
-            padding: 60px 0 30px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-        
-        .footer-column h3 {
-            font-size: 18px;
-            margin-bottom: 20px;
-            color: #fff;
-        }
-        
-        .footer-column ul {
-            list-style: none;
-        }
-        
-        .footer-column ul li {
+        .feature-card h3 {
+            font-size: 20px;
+            font-weight: 700;
             margin-bottom: 10px;
         }
-        
-        .footer-column a {
-            color: #bdc3c7;
+        .feature-card p {
+            color: var(--text-dim);
+            font-size: 14px;
+        }
+
+        /* === Details Section === */
+        .detail-section {
+            background: rgba(26, 26, 46, 0.5);
+        }
+        .detail-section:nth-child(even) {
+            background: var(--bg-dark);
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 20px;
+        }
+        .detail-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+        .detail-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .detail-card .cat-label {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .cat-armor { background: rgba(59,130,246,0.2); color: #60a5fa; }
+        .cat-weapon { background: rgba(239,68,68,0.2); color: #f87171; }
+        .cat-tool { background: rgba(34,197,94,0.2); color: #4ade80; }
+        .cat-ranged { background: rgba(251,191,36,0.2); color: #fbbf24; }
+        .cat-any { background: rgba(192,132,252,0.2); color: #c084fc; }
+
+        .detail-card ul {
+            list-style: none;
+            margin-top: 8px;
+        }
+        .detail-card ul li {
+            padding: 4px 0;
+            font-size: 13px;
+            color: var(--text-dim);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .detail-card ul li:last-child {
+            border-bottom: none;
+        }
+        .detail-card ul li i {
+            width: 16px;
+            margin-right: 6px;
+            font-size: 11px;
+        }
+
+        /* === Table === */
+        .table-wrap {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        table thead th {
+            background: rgba(139, 92, 246, 0.15);
+            color: var(--primary);
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid var(--primary);
+        }
+        table tbody td {
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-dim);
+        }
+        table tbody tr:hover td {
+            background: rgba(192, 132, 252, 0.05);
+        }
+        table tbody td:first-child {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        /* === Server Support === */
+        .server-support {
+            text-align: center;
+        }
+        .server-grid {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        .server-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px 32px;
+            min-width: 140px;
+            transition: all 0.3s;
+        }
+        .server-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+        }
+        .server-card i {
+            font-size: 32px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        .server-card h4 {
+            font-size: 16px;
+        }
+
+        /* === Download === */
+        .download-card {
+            background: linear-gradient(135deg, var(--bg-card), rgba(139, 92, 246, 0.08));
+            border: 1px solid rgba(139,92,246,0.3);
+            border-radius: 16px;
+            padding: 50px;
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .download-card .version-tag {
+            display: inline-block;
+            background: var(--green);
+            color: white;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .download-card h3 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+        .download-card p {
+            color: var(--text-dim);
+            margin-bottom: 20px;
+        }
+        .download-card .license-info {
+            background: rgba(192, 132, 252, 0.08);
+            border: 1px solid rgba(192, 132, 252, 0.15);
+            border-radius: 8px;
+            padding: 14px 20px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            color: var(--text-dim);
+        }
+        .download-card .license-info i {
+            color: var(--gold);
+            margin-right: 8px;
+        }
+
+        .req-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .req-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 16px;
+        }
+        .req-item .label {
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+        .req-item .value {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        /* === Command === */
+        .cmd-wrap {
+            background: #0a0a14;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            font-family: 'JetBrains Mono', 'Consolas', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+        }
+        .cmd-wrap .cmd-line {
+            padding: 6px 0;
+            color: var(--text-dim);
+        }
+        .cmd-wrap .cmd-line .cmd {
+            color: var(--green);
+        }
+        .cmd-wrap .cmd-line .arg {
+            color: var(--gold);
+        }
+        .cmd-wrap .cmd-line .desc {
+            color: var(--text-dim);
+        }
+
+        /* === Footer === */
+        footer {
+            background: rgba(15, 15, 26, 0.95);
+            border-top: 1px solid var(--border);
+            padding: 50px 0 30px;
+            position: relative;
+            z-index: 1;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .footer-col h4 {
+            font-size: 16px;
+            margin-bottom: 16px;
+            color: var(--text);
+        }
+        .footer-col ul {
+            list-style: none;
+        }
+        .footer-col ul li {
+            margin-bottom: 8px;
+        }
+        .footer-col ul li a {
+            color: var(--text-dim);
             text-decoration: none;
+            font-size: 14px;
             transition: color 0.3s;
         }
-        
-        .footer-column a:hover {
-            color: #fff;
+        .footer-col ul li a:hover {
+            color: var(--primary);
         }
-        
         .copyright {
             text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #bdc3c7;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            color: var(--text-dim);
+            font-size: 13px;
         }
-        
-        /* 响应式设计 */
+
+        /* === Color icon helpers === */
+        .text-purple { color: var(--primary); }
+        .text-gold { color: var(--gold); }
+        .text-red { color: var(--red); }
+        .text-green { color: var(--green); }
+        .text-cyan { color: var(--cyan); }
+
+        /* === Responsive === */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 36px;
-            }
-            
-            .hero p {
-                font-size: 18px;
-            }
-            
-            .buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .download-card {
-                padding: 30px;
-            }
-            
-            .logo-text {
-                font-size: 22px;
-            }
-        }
-        
-        /* 附魔书动画 */
-        .enchantment-book {
-            display: inline-block;
-            font-size: 48px;
-            color: var(--enchant);
-            margin: 20px 0;
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
+            .hero h1 { font-size: 32px; }
+            .hero .subtitle { font-size: 16px; }
+            .section-title h2 { font-size: 28px; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .detail-grid { grid-template-columns: 1fr; }
+            .navbar { flex-direction: column; gap: 12px; }
+            .download-card { padding: 24px; }
+            .nav-links a { font-size: 13px; padding: 6px 12px; }
         }
     </style>
 </head>
 <body>
-    <!-- 导航栏 -->
-    <header>
-        <div class="container">
-            <nav class="navbar">
-                <a href="#" class="logo">
-                    <div class="logo-text">Armsor<span>Plus</span></div>
-                </a>
-                <div class="nav-links">
-                    <a href="#">首页</a>
-                    <a href="#">文档</a>
-                    <a href="#">支持</a>
-                    <a href="https://github.com/LJRDE/ArmsorPlus/issues">反馈</a>
-                </div>
-            </nav>
-        </div>
-    </header>
 
-    <!-- 英雄区域 -->
-    <section class="hero">
-        <div class="container">
-            <div class="enchantment-book">
-                <i class="fas fa-book"></i>
+<div id="particles"></div>
+
+<script>
+    (function() {
+        const container = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.animationDuration = (15 + Math.random() * 25) + 's';
+            p.style.animationDelay = (Math.random() * 20) + 's';
+            p.style.width = p.style.height = (2 + Math.random() * 3) + 'px';
+            container.appendChild(p);
+        }
+    })();
+</script>
+
+<!-- Nav -->
+<header>
+    <div class="container">
+        <nav class="navbar">
+            <a href="#" class="logo">
+                <i class="fas fa-shield-halved"></i>
+                Armsor<span>Plus</span>
+            </a>
+            <div class="nav-links">
+                <a href="#features">特性</a>
+                <a href="#enchants">附魔</a>
+                <a href="#weapons">武器</a>
+                <a href="#bosses">BOSS</a>
+                <a href="#food">食物</a>
+                <a href="#download">下载</a>
+                <a href="https://github.com/LJRDE/ArmsorPlus" target="_blank"><i class="fab fa-github"></i> GitHub</a>
             </div>
-            <h1>Minecraft RPG体验的革命性升级</h1>
-            <p>ArmsorPlus 是一款创新的 Minecraft 插件，它将 RPG 元素深度融入原版游戏中，提供超过 30 种独特的高级附魔和定制武器装备系统，还提供了自定义公海系统。无论您是服务器管理员寻求增强玩家体验，还是玩家渴望更丰富的战斗系统，ArmsorPlus 都是您的完美选择。</p>
-            
+        </nav>
+    </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-icon"><i class="fas fa-book-open"></i></div>
+        <div class="version-badge">v0.3-H<sup>+</sup> &mdash; 最新版本</div>
+        <h1>ArmsorPlus</h1>
+        <p class="subtitle">为 Minecraft Paper/Purpur 服务器带来 RPG 化的装备、附魔、BOSS 战斗与饮食系统。<br>基于 PDC 存储的 30+ 自定义附魔，不占用原版附魔槽位。</p>
+        <div class="badge-row">
+            <span class="badge"><i class="fas fa-server"></i> Paper 1.21+</span>
+            <span class="badge"><i class="fab fa-java"></i> Java 21</span>
+            <span class="badge"><i class="fas fa-puzzle-piece"></i> 零前置依赖</span>
+            <span class="badge"><i class="fas fa-code-branch"></i> 开源 (非商业)</span>
+        </div>
+        <div class="buttons">
+            <a href="https://github.com/LJRDE/ArmsorPlus/releases" class="btn btn-primary" target="_blank">
+                <i class="fas fa-download"></i> 下载最新版本
+            </a>
+            <a href="https://github.com/LJRDE/ArmsorPlus" class="btn btn-secondary" target="_blank">
+                <i class="fab fa-github"></i> 查看源代码
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Features -->
+<section class="features" id="features">
+    <div class="container">
+        <div class="section-title">
+            <h2>为什么选择 ArmsorPlus？</h2>
+            <p>从基础到进阶，全方位提升您的 Minecraft 体验</p>
+        </div>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="icon text-purple"><i class="fas fa-book-open"></i></div>
+                <h3>30+ 自定义附魔</h3>
+                <p>基于 PDC 存储，拖拽即用。不与原版附魔冲突，支持装备/武器/工具/弓箭四类附魔。</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon text-gold"><i class="fas fa-gem"></i></div>
+                <h3>强化石系统</h3>
+                <p>通过基础强化石随机获得各类强化石，拖拽到装备上即可提升属性，简单直观。</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon text-red"><i class="fas fa-hand-fist"></i></div>
+                <h3>13 件魔法武器</h3>
+                <p>每一件都拥有独特的右键技能：飞行、瞬移、隐身、箭雨、蓄力投掷等。</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon text-green"><i class="fas fa-dragon"></i></div>
+                <h3>5 大 BOSS 挑战</h3>
+                <p>急冻树、爆炎树、史莱姆王、僵尸巨人、小僵尸双胞胎 — 含元素反应机制。</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon text-cyan"><i class="fas fa-utensils"></i></div>
+                <h3>食物与药品</h3>
+                <p>回春散、止血绷带、酒桶、30+ 种水果，以及丰富的烹饪合成配方。</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon text-gold"><i class="fas fa-seedling"></i></div>
+                <h3>果树种植</h3>
+                <p>20+ 种果树树苗：苹果、樱桃、荔枝、龙眼、椰子、菠萝等，种下即可收获。</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon text-purple"><i class="fas fa-water"></i></div>
+                <h3>公海世界</h3>
+                <p>独立地图 + 宝藏抽奖 + 守护者挑战，可配置自动重置，一切尽在 config.yml。</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon text-cyan"><i class="fas fa-sliders"></i></div>
+                <h3>玩家设置</h3>
+                <p>附魔通知开关、管理员模式等，每个玩家可单独配置。</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon text-gold"><i class="fas fa-magic"></i></div>
+                <h3>魔法球抽奖</h3>
+                <p>消耗经验值兑换魔法球，右键抽取随机附魔书。寻常/稀罕/史诗/传奇 四种品质。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Enchantments -->
+<section class="detail-section" id="enchants">
+    <div class="container">
+        <div class="section-title">
+            <h2>自定义附魔</h2>
+            <p>33+ 种 PDC 附魔 · 拖拽附魔书到装备上应用 · 不占原版槽位</p>
+        </div>
+
+        <div class="detail-grid">
+            <div class="detail-card">
+                <h3><i class="fas fa-shield-halved text-purple"></i> 装备附魔</h3>
+                <div style="margin-bottom:8px"><span class="cat-label cat-armor">盔甲</span></div>
+                <ul>
+                    <li><i class="fas fa-bolt text-gold"></i> <strong>闪避</strong> — 靴子 · 概率闪避攻击 (PvP 15%/级, PvE 20%/级)</li>
+                    <li><i class="fas fa-ghost text-purple"></i> <strong>影避</strong> — 靴子 · 概率闪避<strong>所有类型</strong>伤害 (6%/级)</li>
+                    <li><i class="fas fa-droplet text-cyan"></i> <strong>涟漪</strong> — 靴子 · 受击回复生命值 (每级减缓 20% 伤害)</li>
+                    <li><i class="fas fa-shield text-gold"></i> <strong>格挡</strong> — 头盔 · 按伤害比例减免</li>
+                    <li><i class="fas fa-heart text-red"></i> <strong>生命提升</strong> — 胸甲 · 每级 +5 最大生命值</li>
+                    <li><i class="fas fa-broom text-cyan"></i> <strong>涤魂</strong> — 胸甲 · 周期性免疫负面魔法伤害</li>
+                    <li><i class="fas fa-hand-middle-finger text-red"></i> <strong>复仇</strong> — 胸甲 · 20%/级概率反弹 50% 伤害</li>
+                    <li><i class="fas fa-rotate-left text-gold"></i> <strong>幸存</strong> — 护腿 · 致命伤时 10%/级概率复活</li>
+                    <li><i class="fas fa-skull text-purple"></i> <strong>不灭</strong> — 任意 · 免疫死亡并回满状态 (仅指令获取)</li>
+                    <li><i class="fas fa-shield text-cyan"></i> <strong>保护PRO</strong> — 胸甲 · 每级额外减少 6% 伤害 (满级 V)</li>
+                    <li><i class="fas fa-robot text-gray"></i> <strong>傀儡守护者</strong> — 胸甲 · 被攻击时召唤铁傀儡反击 (满级 V)</li>
+                    <li><i class="fas fa-fire text-gold"></i> <strong>熔岩行者</strong> — 靴子 · 岩浆行走 5 格内变为岩浆块</li>
+                    <li><i class="fas fa-eye text-cyan"></i> <strong>全息</strong> — 盾牌 · 持盾扩展到全角度</li>
+                </ul>
+            </div>
+
+            <div class="detail-card">
+                <h3><i class="fas fa-gun text-red"></i> 武器附魔</h3>
+                <div style="margin-bottom:8px"><span class="cat-label cat-weapon">武器</span> <span class="cat-label cat-ranged">弓弩</span></div>
+                <ul>
+                    <li><i class="fas fa-droplet text-red"></i> <strong>血祭</strong> — 消耗 10 HP 穿透伤害，造成 2~(等级+1) 倍伤害</li>
+                    <li><i class="fas fa-bolt text-gold"></i> <strong>双重打击</strong> — 20%/级概率双倍伤害</li>
+                    <li><i class="fas fa-hand-middle-finger text-red"></i> <strong>吸血</strong> — 攻击吸取 1.5×等级 HP</li>
+                    <li><i class="fas fa-skull text-dark"></i> <strong>凋零</strong> — 攻击附加凋零效果 (每级 5s，最高 III)</li>
+                    <li><i class="fas fa-snowflake text-cyan"></i> <strong>寒冻</strong> — 攻击附加缓慢效果</li>
+                    <li><i class="fas fa-bread-slice text-gold"></i> <strong>饥荒</strong> — 攻击附加饥饿效果</li>
+                    <li><i class="fas fa-forward text-green"></i> <strong>疾刺</strong> — 三叉戟/长矛右键速度提升 (+10%/级)</li>
+                    <li><i class="fas fa-eye-slash text-gray"></i> <strong>失明</strong> — 攻击施加失明效果 (每级 2s)</li>
+                    <li><i class="fas fa-head-side-cough text-purple"></i> <strong>眩晕</strong> — 剑 · 造成反胃效果 (每级 0.7s，满级 V)</li>
+                    <li><i class="fas fa-bomb text-red"></i> <strong>暴击</strong> — 斧 · 暴击概率 15%/级，额外伤害 25%/级 (满级 V)</li>
+                    <li><i class="fas fa-arrow-right text-gold"></i> <strong>穿甲</strong> — 弓/弩 · 使盾牌冷却 + 5 穿透伤害</li>
+                    <li><i class="fas fa-bolt text-gold"></i> <strong>蓄爆</strong> — 弓/弩 · 箭矢替换为烟花火箭，范围爆炸</li>
+                    <li><i class="fas fa-gauge-high text-cyan"></i> <strong>弹道</strong> — 弓/弩 · 箭速每级翻倍</li>
+                    <li><i class="fas fa-crosshairs text-purple"></i> <strong>狙击</strong> — 弓/弩 · 箭速每级 ×5 (需要弹道前置)</li>
+                    <li><i class="fas fa-location-dot text-green"></i> <strong>追踪</strong> — 弓 · 箭矢追踪 450 格内指向目标</li>
+                    <li><i class="fas fa-cloud-sun text-gold"></i> <strong>唤雷</strong> — 三叉戟 · 无视天气召唤 level 道雷 (满级 III)</li>
+                    <li><i class="fas fa-wind text-purple"></i> <strong>强风暴</strong> — 重锤 · 无需下落即可触发风暴</li>
+                    <li><i class="fas fa-burst text-red"></i> <strong>千重射击</strong> — 弩 · 多射 level 支箭 (满级 III)</li>
+                </ul>
+            </div>
+
+            <div class="detail-card">
+                <h3><i class="fas fa-screwdriver-wrench text-gold"></i> 工具附魔</h3>
+                <div style="margin-bottom:8px"><span class="cat-label cat-tool">工具</span></div>
+                <ul>
+                    <li><i class="fas fa-gem text-cyan"></i> <strong>金刚钻</strong> — 镐 · 挖掘黑曜石 20%/级概率瞬间挖掉 (满级 V)</li>
+                    <li><i class="fas fa-wheat-awn text-gold"></i> <strong>丰收</strong> — 锄头 · 30%/级概率获得多倍收获 (满级 III)</li>
+                    <li><i class="fas fa-seedling text-green"></i> <strong>自动种植</strong> — 锄头 · 采集作物时自动补种副手种子</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Enhancement Stones -->
+<section class="detail-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>强化石系统</h2>
+            <p>拖拽到装备上即可提升属性</p>
+        </div>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr><th>物品</th><th>获取方式</th><th>效果</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><span class="text-purple">基础强化石</span></td><td>4×钻石块合成</td><td>右键随机获得一种强化石</td></tr>
+                    <tr><td><span class="text-red">武器强化石 I</span></td><td>魔法球抽取</td><td>锋利 +1</td></tr>
+                    <tr><td><span class="text-red">武器强化石 II</span></td><td>魔法球抽取</td><td>攻击伤害 +1(属性修饰符)</td></tr>
+                    <tr><td><span class="text-cyan">护甲强化石 I</span></td><td>魔法球抽取</td><td>保护 +1</td></tr>
+                    <tr><td><span class="text-cyan">护甲强化石 II</span></td><td>魔法球抽取</td><td>护甲值/韧性/击退抗性各 +1</td></tr>
+                    <tr><td><span class="text-gold">弓箭强化石</span></td><td>魔法球抽取</td><td>力量 +1</td></tr>
+                    <tr><td><span class="text-gold">精炼金刚石</span></td><td>9×钻石块合成</td><td>无限耐久</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- Magic Balls -->
+<section class="detail-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>魔法球抽奖</h2>
+            <p>消耗经验值兑换魔法球，右键抽取随机附魔书</p>
+        </div>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr><th>品质</th><th>需求等级</th><th>保底层数</th><th>附魔获取概率</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><span class="text-green">寻常</span></td><td>30 级</td><td>1 层</td><td rowspan="4">每层独立抽取，10% 概率获得随机等级附魔书</td></tr>
+                    <tr><td><span class="text-cyan">稀罕</span></td><td>50 级</td><td>2 层</td></tr>
+                    <tr><td><span class="text-gold">史诗</span></td><td>70 级</td><td>3 层</td></tr>
+                    <tr><td><span class="text-purple">传奇</span></td><td>150 级</td><td>4 层</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- Weapons -->
+<section class="detail-section" id="weapons">
+    <div class="container">
+        <div class="section-title">
+            <h2>魔法武器</h2>
+            <p>13 件独特武器 · 每件都拥有专属右键技能</p>
+        </div>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr><th>武器</th><th>合成配方</th><th>特性</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><span class="text-red">血祭之剑</span></td><td>红石围骷髅头</td><td>自带血祭 V，消耗生命造成多倍伤害</td></tr>
+                    <tr><td><span class="text-gray">重剑</span></td><td>铁块 + 木棍</td><td>基础攻击 +7.5</td></tr>
+                    <tr><td><span class="text-green">匕首</span></td><td>绿宝石 + 木棍</td><td>额外 5 点真实伤害</td></tr>
+                    <tr><td><span class="text-gold">飞斧</span></td><td>下界合金锭 + 绿宝石块 + 木棍</td><td>右键蓄力 3 秒掷出，20 点伤害</td></tr>
+                    <tr><td><span class="text-dark">骷髅权杖</span></td><td>8 骷髅头围不死图腾</td><td>右键释放箭雨，冷却 10 秒</td></tr>
+                    <tr><td><span class="text-cyan">寒冰弓</span></td><td>蓝冰 + 木棍</td><td>射出 3 支箭，缓慢 + 冻结</td></tr>
+                    <tr><td><span class="text-gold">火焰戟</span></td><td>下界合金锭 + 火焰弹 + 烈焰棒</td><td>近战 +30 火焰伤害，投掷灼烧</td></tr>
+                    <tr><td><span class="text-cyan">雨御前</span></td><td>海晶碎片围下界合金剑</td><td>右键 3 秒隐身+无敌+冰霜领域；Shift+右键瞬移</td></tr>
+                    <tr><td><span class="text-gold">飞天御剑</span></td><td>幻翼膜围金剑</td><td>右键悬空飞行 8m/s，脚下生成飞剑</td></tr>
+                    <tr><td><span class="text-purple">瞬步刃</span></td><td>末影珍珠围下界合金剑</td><td>右键瞬移，指向目标则瞬移身后 +15 伤害</td></tr>
+                    <tr><td><span class="text-cyan">寒冰剑</span></td><td>8 蓝冰 + 钻石剑</td><td>攻击造成缓慢 II 持续 3 秒</td></tr>
+                    <tr><td><span class="text-white">盘丝弓</span></td><td>8 蜘蛛网 + 弓</td><td>生成蜘蛛网 30s，使用 9 次后损坏</td></tr>
+                    <tr><td><span class="text-red">爆炸弓</span></td><td>8 TNT + 弓</td><td>产生爆炸，使用 9 次后损坏</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- Bosses -->
+<section class="detail-section" id="bosses">
+    <div class="container">
+        <div class="section-title">
+            <h2>BOSS 系统</h2>
+            <p>通过菜单 → BOSS 清单召唤 · 需先进入 BOSS 世界</p>
+        </div>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr><th>BOSS</th><th>生命值</th><th>特性</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><span class="text-cyan">急冻树</span></td><td>750</td><td>冰元素 · 火/雷触发双倍伤害 · 冰雹技能</td></tr>
+                    <tr><td><span class="text-red">爆炎树</span></td><td>750</td><td>火元素 · 雷/冰触发双倍伤害 · 火焰弹/横扫</td></tr>
+                    <tr><td><span class="text-green">史莱姆王</span></td><td>750</td><td>跳跃粉碎攻击 · 半血分裂激怒</td></tr>
+                    <tr><td><span class="text-gray">僵尸巨人</span></td><td>1500</td><td>攻击力 80 · 附带缓慢与击退</td></tr>
+                    <tr><td><span class="text-gold">小僵尸 Double</span></td><td>600 × 2</td><td>两只保护 IV 下界合金套小僵尸 · 长矛 + 剑</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="margin-top:16px; background: var(--bg-card); border:1px solid var(--border); border-radius:10px; padding:16px 20px;">
+            <p style="font-size:14px; color:var(--text-dim);">
+                <i class="fas fa-bullseye text-red"></i> <strong>战斗机制：</strong>
+                躯干攻击 ×3 武器伤害 · 核心攻击 ×15 武器伤害 ·
+                元素反应 50% 概率暴露核心
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Food & Medicine -->
+<section class="detail-section" id="food">
+    <div class="container">
+        <div class="section-title">
+            <h2>食物与药品</h2>
+            <p>从疗伤圣品到风味美食，丰富您的冒险历程</p>
+        </div>
+
+        <div class="detail-grid">
+            <div class="detail-card">
+                <h3><i class="fas fa-kit-medical text-red"></i> 药品</h3>
+                <ul>
+                    <li><strong class="text-purple">回春散</strong> — 生命恢复 V 3s (可合成出上品/极品/仙品)</li>
+                    <li><strong class="text-red">止血绷带</strong> — 瞬间恢复 6 HP</li>
+                    <li><strong class="text-gold">压缩饼干</strong> — 瞬间恢复 20 饱食度</li>
+                </ul>
+            </div>
+            <div class="detail-card">
+                <h3><i class="fas fa-wine-bottle text-gold"></i> 酒类</h3>
+                <ul>
+                    <li><strong>酒桶</strong> — 放置后右键打开，内含 9 瓶酒</li>
+                    <li><strong>酒 (90%)</strong> — 力量 II 30s</li>
+                    <li><strong class="text-gold">佳酿 (9.9%)</strong> — 力量 III 45s</li>
+                    <li><strong class="text-purple">金樽清酒 (0.1%)</strong> — 力量 V 140s + 死亡复活</li>
+                </ul>
+            </div>
+            <div class="detail-card">
+                <h3><i class="fas-regular fa-drumstick-bite text-gold"></i> 肉干系列</h3>
+                <ul>
+                    <li><strong>肉干</strong> — 恢复 6 饥饿值 + 7.2 饱和度</li>
+                    <li><strong>猪肉干</strong> — 恢复 7 饥饿值 + 8 饱和度</li>
+                    <li><strong>羊肉干</strong> — 恢复 5 饥饿值 + 6 饱和度</li>
+                    <li><strong class="text-gray">腐肉干</strong> — 恢复 4 饥饿值 + 3 饱和度</li>
+                </ul>
+            </div>
+            <div class="detail-card">
+                <h3><i class="fas fa-apple-alt text-red"></i> 水果</h3>
+                <ul>
+                    <li>大苹果 · 李子 · 榛子 · 椰子 · 菠萝 · 草莓 · 蓝莓 · 橙子 · 橘子</li>
+                    <li>无花果 · 枣子 · 柿子 · 山竹 · 圣女果 · 西红柿 · 葡萄 · 石榴</li>
+                    <li>栗子 · 猕猴桃 · 龙眼 · 荔枝 · 樱桃 · 桃子</li>
+                    <li class="text-dim" style="font-size:12px; margin-top:4px;">均配有对应树苗，可种植收获</li>
+                </ul>
+            </div>
+            <div class="detail-card">
+                <h3><i class="fas fa-utensils text-gold"></i> 美食 & 食材</h3>
+                <ul>
+                    <li>甜浆果派 · 盐 · 奶酪 · 黄油</li>
+                    <li>汉堡 · 热狗 · 披萨 · 薯条 · 甜甜圈</li>
+                    <li>冰淇淋 · 爆米花 · 棉花糖 · 巧克力</li>
+                    <li>寿司 · 拉面 · 三明治 · 鸡腿 · 薄饼</li>
+                    <li>辣椒 · 洋葱 · 卷心菜 · 冰块</li>
+                </ul>
+            </div>
+            <div class="detail-card">
+                <h3><i class="fas fa-seedling text-green"></i> 果树种植</h3>
+                <ul>
+                    <li>22 种树苗：无花果、枣、柿、山竹、圣女果、西红柿、葡萄、石榴</li>
+                    <li>栗子、猕猴桃、龙眼、荔枝、樱桃、桃子、李子、榛子、椰子</li>
+                    <li>菠萝、草莓、蓝莓、橙子、橘子、大苹果</li>
+                    <li class="text-dim" style="font-size:12px; margin-top:4px;">右键种植在泥土/草方块上</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- OpenSea -->
+<section class="detail-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>公海世界</h2>
+            <p>独立世界地图 · 宝藏抽奖 · 守护者挑战</p>
+        </div>
+        <div style="text-align:center;">
+            <div style="display:inline-block; background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:24px 32px; max-width:600px;">
+                <i class="fas fa-water" style="font-size:48px; color:var(--cyan); margin-bottom:12px;"></i>
+                <p style="color:var(--text-dim); font-size:14px;">在 config.yml 中开启公海世界后，服务端自动加载独立地图。<br>玩家可在其中探索宝藏、挑战守护者，享受海洋冒险。</p>
+                <div class="cmd-wrap" style="margin-top:16px; text-align:left;">
+                    <div class="cmd-line"><span class="cmd">SpawnOpenSea</span>: <span class="arg">false</span>  <span class="desc"># 是否启用</span></div>
+                    <div class="cmd-line"><span class="cmd">AutoResetOpenSeaMap</span>: <span class="arg">false</span>  <span class="desc"># 自动重置</span></div>
+                    <div class="cmd-line"><span class="cmd">OpenSeaName</span>: <span class="arg">"OpenSea"</span>  <span class="desc"># 世界名</span></div>
+                    <div class="cmd-line"><span class="cmd">MapZipName</span>: <span class="arg">"OpenSea.zip"</span>  <span class="desc"># 地图包名</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Server Support -->
+<section class="server-support">
+    <div class="container">
+        <div class="section-title">
+            <h2>支持的服务端</h2>
+            <p>ArmsorPlus 专为现代 Minecraft 服务端优化</p>
+        </div>
+        <div class="server-grid">
+            <div class="server-card">
+                <i class="fas fa-leaf"></i>
+                <h4>Paper</h4>
+            </div>
+            <div class="server-card">
+                <i class="fas fa-leaf"></i>
+                <h4>Purpur</h4>
+            </div>
+            <div class="server-card">
+                <i class="fas fa-water"></i>
+                <h4>Leaves</h4>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Requirements -->
+<section class="detail-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>使用要求</h2>
+            <p>快速上手 ArmsorPlus</p>
+        </div>
+        <div class="req-grid" style="max-width:600px; margin:0 auto 30px;">
+            <div class="req-item">
+                <div class="label">服务端</div>
+                <div class="value">Paper / Purpur 1.21+</div>
+            </div>
+            <div class="req-item">
+                <div class="label">Java</div>
+                <div class="value">21+</div>
+            </div>
+            <div class="req-item">
+                <div class="label">前置依赖</div>
+                <div class="value" style="color:var(--green);">无</div>
+            </div>
+        </div>
+        <div style="max-width:600px; margin:0 auto; background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:20px 24px;">
+            <h4 style="margin-bottom:10px;"><i class="fas fa-play text-green"></i> 快速开始</h4>
+            <ol style="color:var(--text-dim); font-size:14px; padding-left:20px;">
+                <li style="margin-bottom:6px;">下载 <code>ArmsorPlus.jar</code> 放入 <code>plugins/</code> 目录</li>
+                <li style="margin-bottom:6px;">重启服务端</li>
+                <li style="margin-bottom:6px;">用 1 个圆石合成 <strong class="text-gold">高级附魔向导书</strong>，右键打开主菜单</li>
+                <li>OP 玩家使用 <code>/ArmsorPlus help</code> 查看管理命令</li>
+            </ol>
+        </div>
+    </div>
+</section>
+
+<!-- Commands -->
+<section class="detail-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>指令参考</h2>
+            <p>需要 <code>ArmsorPlus.op</code> 权限（默认 OP）</p>
+        </div>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr><th>指令</th><th>说明</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>/ArmsorPlus help</code></td><td>查看帮助</td></tr>
+                    <tr><td><code>/ArmsorPlus info</code></td><td>插件信息</td></tr>
+                    <tr><td><code>/ArmsorPlus guide</code></td><td>获得高级附魔向导书</td></tr>
+                    <tr><td><code>/ArmsorPlus give &lt;item&gt; [amount] [level]</code></td><td>给予物品</td></tr>
+                    <tr><td><code>/ArmsorPlus getEnchantmentLevel &lt;enchant&gt;</code></td><td>查看手持物品附魔等级</td></tr>
+                    <tr><td><code>/ArmsorPlus removeEnchant &lt;enchant|all&gt;</code></td><td>移除手持物品附魔</td></tr>
+                    <tr><td><code>/ArmsorPlus reloadmap</code></td><td>重载公海地图</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- Download -->
+<section class="server-support" id="download">
+    <div class="container">
+        <div class="download-card">
+            <div class="version-tag">当前版本: v0.3-H<sup>+</sup></div>
+            <h3>下载 ArmsorPlus</h3>
+            <p>专为 Paper/Purpur 1.21+ 优化的 RPG 增强插件 · 零前置依赖</p>
+            <div class="license-info">
+                <i class="fas fa-balance-scale"></i>
+                <strong>许可协议：</strong> 源码开放，<strong>不可用于商业用途</strong>
+            </div>
             <div class="buttons">
-                <a href="https://github.com/LJRDE/ArmsorPlus/releases/download/0.2-f%2B/ArmsorPlus-0.2-f+.jar" class="btn btn-primary">
-                    <i class="fas fa-download"></i>
-                    下载最新版本
+                <a href="https://github.com/LJRDE/ArmsorPlus/releases" class="btn btn-primary" target="_blank">
+                    <i class="fas fa-download"></i> 下载最新版本
                 </a>
-                <a href="https://github.com/LJRDE/ArmsorPlus/releases" class="btn btn-secondary">
-                    <i class="fas fa-list"></i>
-                    查看所有版本
+                <a href="https://github.com/LJRDE/ArmsorPlus" class="btn btn-secondary" target="_blank">
+                    <i class="fab fa-github"></i> 查看 GitHub
                 </a>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- 特性区域 -->
-    <section class="features">
-        <div class="container">
-            <div class="section-title">
-                <h2>ArmsorPlus 核心特性</h2>
-                <p>将您的Minecraft服务器转变为丰富的RPG体验</p>
-            </div>
-            
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-book-open"></i>
-                    </div>
-                    <h3>高级附魔系统</h3>
-                    <p>提供30多种独特的高级附魔，为战斗添加全新维度和策略选择。</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>定制武器装备</h3>
-                    <p>完全可定制的武器和装备系统，允许创建独特属性的物品，增强RPG体验。</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-water"></i>
-                    </div>
-                    <h3>内置公海系统</h3>
-                    <p>创新的公海探索机制，无需任何前置插件，添加海洋冒险和海底宝藏等全新游戏内容。</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <h3>高度可配置</h3>
-                    <p>每个功能都可以通过详细的配置文件进行微调，满足不同服务器的特定需求。</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-gem"></i>
-                    </div>
-                    <h3>独特战利品</h3>
-                    <p>添加多种稀有武器和装备，让玩家有更多收集和探索的动力。</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-code-branch"></i>
-                    </div>
-                    <h3>开源开发</h3>
-                    <p>采用GPL-3.0协议开源，社区驱动开发，持续更新并添加新功能。</p>
-                </div>
+<!-- Build -->
+<section class="detail-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>自行构建</h2>
+            <p>环境要求 JDK 21+</p>
+        </div>
+        <div style="max-width:500px; margin:0 auto;">
+            <div class="cmd-wrap">
+                <div class="cmd-line"><span class="text-green"># 构建</span></div>
+                <div class="cmd-line"><span class="cmd">./gradlew</span> build</div>
+                <div class="cmd-line" style="margin-top:8px;"><span class="text-green"># 产物在 build/libs/ArmsorPlus-1.0.jar</span></div>
+                <div class="cmd-line" style="margin-top:12px;"><span class="text-green"># 启动测试服务端 (Purpur 1.21.11)</span></div>
+                <div class="cmd-line"><span class="cmd">./gradlew</span> runPurpur</div>
+                <div class="cmd-line" style="margin-top:12px;"><span class="text-green"># 仅更新插件 jar (热重载)</span></div>
+                <div class="cmd-line"><span class="cmd">./gradlew</span> reload</div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- 服务端支持区域 -->
-    <section class="servers-support">
-        <div class="container">
-            <div class="section-title">
-                <h2>支持的服务端</h2>
-                <p>ArmsorPlus 专为现代Minecraft服务端优化</p>
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>ArmsorPlus</h4>
+                <ul>
+                    <li><a href="#">关于项目</a></li>
+                    <li><a href="#features">功能特性</a></li>
+                    <li><a href="https://github.com/LJRDE/ArmsorPlus/releases">更新日志</a></li>
+                </ul>
             </div>
-            
-            <div class="servers-grid">
-                <div class="server-item">
-                    <i class="fas fa-leaf"></i>
-                    <h3>Paper</h3>
-                </div>
-                
-                <div class="server-item">
-                    <i class="fas fa-leaf"></i>
-                    <h3>Leaves</h3>
-                </div>
-                
-                <div class="server-item">
-                    <i class="fas fa-feather-alt"></i>
-                    <h3>Purpur</h3>
-                </div>
+            <div class="footer-col">
+                <h4>资源</h4>
+                <ul>
+                    <li><a href="https://github.com/LJRDE/ArmsorPlus">GitHub 仓库</a></li>
+                    <li><a href="https://github.com/LJRDE/ArmsorPlus/issues">反馈问题</a></li>
+                    <li><a href="https://github.com/LJRDE/ArmsorPlus/releases">发布版本</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>技术栈</h4>
+                <ul>
+                    <li><a>Paper API 1.21</a></li>
+                    <li><a>Java 21</a></li>
+                    <li><a>Gradle</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>作者</h4>
+                <ul>
+                    <li><a>Dim_LJR</a></li>
+                    <li><a>© 2025-2026</a></li>
+                </ul>
             </div>
         </div>
-    </section>
-
-    <!-- 下载区域 -->
-    <section class="download-section">
-        <div class="container">
-            <div class="section-title">
-                <h2>下载ArmsorPlus</h2>
-                <p>获取最新版本或浏览历史发布版本</p>
-            </div>
-            
-            <div class="download-card">
-                <span class="version-badge">当前版本: v0.2-f+</span>
-                <h3>立即下载ArmsorPlus</h3>
-                <p>专为Paper、Leaves和Purpur服务端优化的RPG体验增强插件。</p>
-                
-                <div class="license-info">
-                    <i class="fas fa-balance-scale"></i>
-                    <strong>开源协议:</strong> 本项目采用 GNU General Public License v3.0 开源协议发布
-                </div>
-                
-                <div class="buttons">
-                    <a href="https://github.com/LJRDE/ArmsorPlus/releases/download/0.2-f%2B/ArmsorPlus-0.2-f+.jar" class="btn btn-primary">
-                        <i class="fas fa-download"></i>
-                        下载最新版本
-                    </a>
-                    <a href="https://github.com/LJRDE/ArmsorPlus/releases" class="btn btn-secondary">
-                        <i class="fas fa-list"></i>
-                        查看所有版本
-                    </a>
-                </div>
-            </div>
+        <div class="copyright">
+            <p>&copy; 2025-2026 ArmsorPlus 项目 · 开源但不可用于商业用途 · Built with <i class="fas fa-heart text-red"></i> for Minecraft</p>
         </div>
-    </section>
+    </div>
+</footer>
 
-    <!-- 页脚 -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>ArmsorPlus</h3>
-                    <ul>
-                        <li><a href="#">关于我们</a></li>
-                        <li><a href="#">功能</a></li>
-                        <li><a href="#">更新日志</a></li>
-                        <li><a href="#">路线图</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>资源</h3>
-                    <ul>
-                        <li><a href="#">文档</a></li>
-                        <li><a href="#">教程</a></li>
-                        <li><a href="#">API参考</a></li>
-                        <li><a href="#">常见问题</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>社区</h3>
-                    <ul>
-                        <li><a href="#">Discord</a></li>
-                        <li><a href="https://github.com/LJRDE/ArmsorPlus">GitHub</a></li>
-                        <li><a href="https://github.com/LJRDE/ArmsorPlus/issues">反馈问题</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>法律</h3>
-                    <ul>
-                        <li><a href="#">隐私政策</a></li>
-                        <li><a href="#">服务条款</a></li>
-                        <li><a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0协议</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="copyright">
-                <p>&copy; 2025-2027 ArmsorPlus项目。保留所有权利。遵循GPL-3.0开源协议。</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // 为下载按钮添加点击事件
-        document.addEventListener('DOMContentLoaded', function() {
-            const downloadButtons = document.querySelectorAll('.btn-primary');
-            
-            downloadButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    // 实际链接已设置，无需额外处理
-                });
-            });
-        });
-    </script>
 </body>
 </html>
