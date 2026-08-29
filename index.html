@@ -354,6 +354,7 @@
         .cat-tool { background: rgba(34,197,94,0.2); color: #4ade80; }
         .cat-ranged { background: rgba(251,191,36,0.2); color: #fbbf24; }
         .cat-any { background: rgba(192,132,252,0.2); color: #c084fc; }
+        .cat-blade { background: rgba(255,255,255,0.1); color: #e2e8f0; }
 
         .detail-card ul {
             list-style: none;
@@ -632,9 +633,9 @@
 <section class="hero">
     <div class="container">
         <div class="hero-icon"><i class="fas fa-book-open"></i></div>
-        <div class="version-badge">v0.3-H<sup>+</sup> &mdash; 最新版本</div>
+        <div class="version-badge">v0.3-J<sup>+</sup> &mdash; 最新版本</div>
         <h1>ArmsorPlus</h1>
-        <p class="subtitle">为 Minecraft Paper/Purpur 服务器带来 RPG 化的装备、附魔、BOSS 战斗与饮食系统。<br>基于 PDC 存储的 30+ 自定义附魔，不占用原版附魔槽位。</p>
+        <p class="subtitle">为 Minecraft Paper/Purpur 服务器带来 RPG 化的装备、附魔、BOSS 战斗与饮食系统。<br>基于 PDC 存储的 40+ 自定义附魔，不占用原版附魔槽位。</p>
         <div class="badge-row">
             <span class="badge"><i class="fas fa-server"></i> Paper 1.21+</span>
             <span class="badge"><i class="fab fa-java"></i> Java 21</span>
@@ -662,8 +663,8 @@
         <div class="feature-grid">
             <div class="feature-card">
                 <div class="icon text-purple"><i class="fas fa-book-open"></i></div>
-                <h3>30+ 自定义附魔</h3>
-                <p>基于 PDC 存储，拖拽即用。不与原版附魔冲突，支持装备/武器/工具/弓箭四类附魔。</p>
+                <h3>40+ 自定义附魔</h3>
+                <p>基于 PDC 存储，拖拽即用。不与原版附魔冲突，支持装备/武器/工具/弓弩/盾牌五类附魔。</p>
             </div>
             <div class="feature-card">
                 <div class="icon text-gold"><i class="fas fa-gem"></i></div>
@@ -672,13 +673,13 @@
             </div>
             <div class="feature-card">
                 <div class="icon text-red"><i class="fas fa-hand-fist"></i></div>
-                <h3>13 件魔法武器</h3>
-                <p>每一件都拥有独特的右键技能：飞行、瞬移、隐身、箭雨、蓄力投掷等。</p>
+                <h3>30+ 魔法武器</h3>
+                <p>从血祭之剑到吞云斩月刀，从寒冰弓到狂怒掠夺者之弩，每一件都拥有独特的战斗机制。</p>
             </div>
             <div class="feature-card">
                 <div class="icon text-green"><i class="fas fa-dragon"></i></div>
-                <h3>5 大 BOSS 挑战</h3>
-                <p>急冻树、爆炎树、史莱姆王、僵尸巨人、小僵尸双胞胎 — 含元素反应机制。</p>
+                <h3>11 大 BOSS 挑战</h3>
+                <p>雪人王、烈焰领主、史莱姆王、骷髅王、幻术师、铁骑双雄、熔岩双王等，含元素反应与部位破坏。</p>
             </div>
             <div class="feature-card">
                 <div class="icon text-cyan"><i class="fas fa-utensils"></i></div>
@@ -688,7 +689,7 @@
             <div class="feature-card">
                 <div class="icon text-gold"><i class="fas fa-seedling"></i></div>
                 <h3>果树种植</h3>
-                <p>20+ 种果树树苗：苹果、樱桃、荔枝、龙眼、椰子、菠萝等，种下即可收获。</p>
+                <p>22+ 种果树树苗：苹果、樱桃、荔枝、龙眼、椰子、菠萝等，种下即可收获。</p>
             </div>
             <div class="feature-card">
                 <div class="icon text-purple"><i class="fas fa-water"></i></div>
@@ -696,9 +697,9 @@
                 <p>独立地图 + 宝藏抽奖 + 守护者挑战，可配置自动重置，一切尽在 config.yml。</p>
             </div>
             <div class="feature-card">
-                <div class="icon text-cyan"><i class="fas fa-sliders"></i></div>
-                <h3>玩家设置</h3>
-                <p>附魔通知开关、管理员模式等，每个玩家可单独配置。</p>
+                <div class="icon text-cyan"><i class="fas fa-fish"></i></div>
+                <h3>鱼骨武器系列</h3>
+                <p>从鱼骨剑到海哭刀，16 把深海武器逐级进阶，水中/雨天获得额外伤害与特殊效果。</p>
             </div>
             <div class="feature-card">
                 <div class="icon text-gold"><i class="fas fa-magic"></i></div>
@@ -714,13 +715,13 @@
     <div class="container">
         <div class="section-title">
             <h2>自定义附魔</h2>
-            <p>33+ 种 PDC 附魔 · 拖拽附魔书到装备上应用 · 不占原版槽位</p>
+            <p>40+ 种 PDC 附魔 · 拖拽附魔书到装备上应用 · 不占原版槽位</p>
         </div>
 
         <div class="detail-grid">
             <div class="detail-card">
                 <h3><i class="fas fa-shield-halved text-purple"></i> 装备附魔</h3>
-                <div style="margin-bottom:8px"><span class="cat-label cat-armor">盔甲</span></div>
+                <div style="margin-bottom:8px"><span class="cat-label cat-armor">盔甲</span> <span class="cat-label cat-any">通用</span></div>
                 <ul>
                     <li><i class="fas fa-bolt text-gold"></i> <strong>闪避</strong> — 靴子 · 概率闪避攻击 (PvP 15%/级, PvE 20%/级)</li>
                     <li><i class="fas fa-ghost text-purple"></i> <strong>影避</strong> — 靴子 · 概率闪避<strong>所有类型</strong>伤害 (6%/级)</li>
@@ -735,12 +736,16 @@
                     <li><i class="fas fa-robot text-gray"></i> <strong>傀儡守护者</strong> — 胸甲 · 被攻击时召唤铁傀儡反击 (满级 V)</li>
                     <li><i class="fas fa-fire text-gold"></i> <strong>熔岩行者</strong> — 靴子 · 岩浆行走 5 格内变为岩浆块</li>
                     <li><i class="fas fa-eye text-cyan"></i> <strong>全息</strong> — 盾牌 · 持盾扩展到全角度</li>
+                    <li><i class="fas fa-shield-halved text-gray"></i> <strong>重甲</strong> — 胸甲 · 穿戴时获得缓慢 II + 抗性提升 II</li>
+                    <li><i class="fas fa-seedling text-green"></i> <strong>百草</strong> — 盔甲 · 采集植物时额外掉落</li>
+                    <li><i class="fas fa-person-running text-red"></i> <strong>卸力</strong> — 盔甲 · 受击时减少受到的伤害</li>
+                    <li><i class="fas fa-dagger text-gold"></i> <strong>伏击</strong> — 盾牌 · 使用盾牌后获得短暂力量加成</li>
                 </ul>
             </div>
 
             <div class="detail-card">
                 <h3><i class="fas fa-gun text-red"></i> 武器附魔</h3>
-                <div style="margin-bottom:8px"><span class="cat-label cat-weapon">武器</span> <span class="cat-label cat-ranged">弓弩</span></div>
+                <div style="margin-bottom:8px"><span class="cat-label cat-weapon">武器</span> <span class="cat-label cat-ranged">弓弩</span> <span class="cat-label cat-blade">印刻</span></div>
                 <ul>
                     <li><i class="fas fa-droplet text-red"></i> <strong>血祭</strong> — 消耗 10 HP 穿透伤害，造成 2~(等级+1) 倍伤害</li>
                     <li><i class="fas fa-bolt text-gold"></i> <strong>双重打击</strong> — 20%/级概率双倍伤害</li>
@@ -752,6 +757,13 @@
                     <li><i class="fas fa-eye-slash text-gray"></i> <strong>失明</strong> — 攻击施加失明效果 (每级 2s)</li>
                     <li><i class="fas fa-head-side-cough text-purple"></i> <strong>眩晕</strong> — 剑 · 造成反胃效果 (每级 0.7s，满级 V)</li>
                     <li><i class="fas fa-bomb text-red"></i> <strong>暴击</strong> — 斧 · 暴击概率 15%/级，额外伤害 25%/级 (满级 V)</li>
+                    <li><i class="fas fa-skull-crossbones text-green"></i> <strong>剧毒</strong> — 攻击附加中毒效果</li>
+                    <li><i class="fas fa-cut text-cyan"></i> <strong>利刃</strong> — 攻击伤害按百分比提升</li>
+                    <li><i class="fas fa-fire text-red"></i> <strong>火印</strong> — 攻击附加额外火焰伤害</li>
+                    <li><i class="fas fa-snowflake text-cyan"></i> <strong>霜印</strong> — 攻击附加额外冰冻伤害</li>
+                    <li><i class="fas fa-bolt text-gold"></i> <strong>雷印</strong> — 攻击附加额外雷电伤害</li>
+                    <li><i class="fas fa-wand-magic-sparkles text-purple"></i> <strong>魔印</strong> — 攻击附加额外魔法伤害</li>
+                    <li><i class="fas fa-skull text-red"></i> <strong>贯穿</strong> — 攻击无视部分护甲</li>
                     <li><i class="fas fa-arrow-right text-gold"></i> <strong>穿甲</strong> — 弓/弩 · 使盾牌冷却 + 5 穿透伤害</li>
                     <li><i class="fas fa-bolt text-gold"></i> <strong>蓄爆</strong> — 弓/弩 · 箭矢替换为烟花火箭，范围爆炸</li>
                     <li><i class="fas fa-gauge-high text-cyan"></i> <strong>弹道</strong> — 弓/弩 · 箭速每级翻倍</li>
@@ -760,6 +772,9 @@
                     <li><i class="fas fa-cloud-sun text-gold"></i> <strong>唤雷</strong> — 三叉戟 · 无视天气召唤 level 道雷 (满级 III)</li>
                     <li><i class="fas fa-wind text-purple"></i> <strong>强风暴</strong> — 重锤 · 无需下落即可触发风暴</li>
                     <li><i class="fas fa-burst text-red"></i> <strong>千重射击</strong> — 弩 · 多射 level 支箭 (满级 III)</li>
+                    <li><i class="fas fa-cloud-bolt text-yellow"></i> <strong>惊雷</strong> — 弓/弩 · 箭矢命中时召唤闪电</li>
+                    <li><i class="fas fa-icicles text-cyan"></i> <strong>冰刺</strong> — 攻击附加冰刺伤害</li>
+                    <li><i class="fas fa-fire-flame-curved text-red"></i> <strong>烈焰</strong> — 攻击附加烈焰伤害</li>
                 </ul>
             </div>
 
@@ -770,6 +785,7 @@
                     <li><i class="fas fa-gem text-cyan"></i> <strong>金刚钻</strong> — 镐 · 挖掘黑曜石 20%/级概率瞬间挖掉 (满级 V)</li>
                     <li><i class="fas fa-wheat-awn text-gold"></i> <strong>丰收</strong> — 锄头 · 30%/级概率获得多倍收获 (满级 III)</li>
                     <li><i class="fas fa-seedling text-green"></i> <strong>自动种植</strong> — 锄头 · 采集作物时自动补种副手种子</li>
+                    <li><i class="fas fa-mountain text-green"></i> <strong>地之眷顾</strong> — 铲子 · 挖泥土 10%/级概率掉落金粒/铁粒</li>
                 </ul>
             </div>
         </div>
@@ -830,29 +846,85 @@
     <div class="container">
         <div class="section-title">
             <h2>魔法武器</h2>
-            <p>13 件独特武器 · 每件都拥有专属右键技能</p>
+            <p>30+ 件独特武器 · 从新手到毕业的完整武器树</p>
         </div>
-        <div class="table-wrap">
-            <table>
-                <thead>
-                    <tr><th>武器</th><th>合成配方</th><th>特性</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td><span class="text-red">血祭之剑</span></td><td>红石围骷髅头</td><td>自带血祭 V，消耗生命造成多倍伤害</td></tr>
-                    <tr><td><span class="text-gray">重剑</span></td><td>铁块 + 木棍</td><td>基础攻击 +7.5</td></tr>
-                    <tr><td><span class="text-green">匕首</span></td><td>绿宝石 + 木棍</td><td>额外 5 点真实伤害</td></tr>
-                    <tr><td><span class="text-gold">飞斧</span></td><td>下界合金锭 + 绿宝石块 + 木棍</td><td>右键蓄力 3 秒掷出，20 点伤害</td></tr>
-                    <tr><td><span class="text-dark">骷髅权杖</span></td><td>8 骷髅头围不死图腾</td><td>右键释放箭雨，冷却 10 秒</td></tr>
-                    <tr><td><span class="text-cyan">寒冰弓</span></td><td>蓝冰 + 木棍</td><td>射出 3 支箭，缓慢 + 冻结</td></tr>
-                    <tr><td><span class="text-gold">火焰戟</span></td><td>下界合金锭 + 火焰弹 + 烈焰棒</td><td>近战 +30 火焰伤害，投掷灼烧</td></tr>
-                    <tr><td><span class="text-cyan">雨御前</span></td><td>海晶碎片围下界合金剑</td><td>右键 3 秒隐身+无敌+冰霜领域；Shift+右键瞬移</td></tr>
-                    <tr><td><span class="text-gold">飞天御剑</span></td><td>幻翼膜围金剑</td><td>右键悬空飞行 8m/s，脚下生成飞剑</td></tr>
-                    <tr><td><span class="text-purple">瞬步刃</span></td><td>末影珍珠围下界合金剑</td><td>右键瞬移，指向目标则瞬移身后 +15 伤害</td></tr>
-                    <tr><td><span class="text-cyan">寒冰剑</span></td><td>8 蓝冰 + 钻石剑</td><td>攻击造成缓慢 II 持续 3 秒</td></tr>
-                    <tr><td><span class="text-white">盘丝弓</span></td><td>8 蜘蛛网 + 弓</td><td>生成蜘蛛网 30s，使用 9 次后损坏</td></tr>
-                    <tr><td><span class="text-red">爆炸弓</span></td><td>8 TNT + 弓</td><td>产生爆炸，使用 9 次后损坏</td></tr>
-                </tbody>
-            </table>
+
+        <div class="detail-grid">
+            <div class="detail-card">
+                <h3><i class="fas fa-hand-fist text-red"></i> 经典武器</h3>
+                <ul>
+                    <li><strong class="text-red">血祭之剑</strong> — 金剑 · 自带血祭 V，消耗生命造成多倍伤害</li>
+                    <li><strong>重剑</strong> — 铁剑 · 基础攻击 +7.5</li>
+                    <li><strong class="text-green">匕首</strong> — 下界合金剑 · 额外 5 点真实伤害</li>
+                    <li><strong class="text-gold">飞斧</strong> — 下界合金斧 · 右键蓄力 3 秒掷出，20 点伤害</li>
+                    <li><strong class="text-dark">骷髅权杖</strong> — 骨头 · 右键释放箭雨，冷却 10 秒</li>
+                    <li><strong class="text-cyan">寒冰弓</strong> — 蓝冰 + 木棍 · 射出 3 支箭，缓慢 + 冻结</li>
+                    <li><strong class="text-gold">火焰戟</strong> — 三叉戟 · 近战 +30 火焰伤害，投掷灼烧</li>
+                    <li><strong class="text-cyan">雨御前</strong> — 钻石剑 · 右键 3 秒隐身+无敌+冰霜领域；Shift+右键瞬移</li>
+                    <li><strong class="text-gold">飞天御剑</strong> — 金剑 · 右键悬空飞行 8m/s，脚下生成飞剑</li>
+                    <li><strong class="text-purple">瞬步刃</strong> — 下界合金剑 · 右键瞬移，指向目标则瞬移身后 +15 伤害</li>
+                    <li><strong class="text-cyan">寒冰剑</strong> — 钻石剑 · 攻击造成缓慢 II 持续 3 秒</li>
+                    <li><strong class="text-white">盘丝弓</strong> — 弓 · 生成蜘蛛网 30s，使用 9 次后损坏</li>
+                    <li><strong class="text-red">爆炸弓</strong> — 弓 · 产生爆炸，使用 9 次后损坏</li>
+                    <li><strong class="text-purple">法杖</strong> — 烈焰棒 · 左键发射魔法球，命中 20 伤害+着火 3 秒</li>
+                </ul>
+            </div>
+
+            <div class="detail-card">
+                <h3><i class="fas fa-sun text-gold"></i> 元素武器</h3>
+                <ul>
+                    <li><strong class="text-gold">烈阳</strong> — 铁剑 · 基础+8，白天额外+4，火焰附加 V，自带火印</li>
+                    <li><strong class="text-yellow">雷光</strong> — 铁剑 · 基础+8，雷雨天伤害+25%，自带雷印</li>
+                    <li><strong class="text-green">桃木剑</strong> — 木剑 · 亡灵杀手 V，+5 伤害</li>
+                    <li><strong class="text-dark-green">玄武剑</strong> — 石剑 · 每造成 200 点伤害 +1，上限 +8</li>
+                    <li><strong class="text-cyan">星痕剑</strong> — 铁剑 · 夜晚伤害+100%，自带霜印+寒冻 II</li>
+                    <li><strong class="text-purple">噬生</strong> — 下界合金剑 · 造成伤害时随机扣血提升伤害，自带魔印</li>
+                    <li><strong class="text-white">吞云斩月刀</strong> — 钻石剑 · 无法破坏，右键突刺(最远3格)，触发双重打击/血祭</li>
+                </ul>
+            </div>
+
+            <div class="detail-card">
+                <h3><i class="fas fa-fish text-cyan"></i> 鱼骨武器系列</h3>
+                <div style="margin-bottom:8px"><span class="cat-label cat-ranged">0.3I+ 新增</span></div>
+                <ul>
+                    <li><strong class="text-yellow">鱼骨剑/刀</strong> — 伤害 5.0 · 2 鱼 + 1 骨头合成</li>
+                    <li><strong class="text-yellow">鱼刺剑/刀</strong> — 伤害 6.5 · 骨块 + 海晶沙粒合成</li>
+                    <li><strong class="text-cyan">海骨剑</strong> — 伤害 7.5 · 水中/雨天 +10% 伤害 +10% 移速</li>
+                    <li><strong class="text-cyan">海骨刀</strong> — 伤害 7.5 · 水中/雨天 +16% 伤害</li>
+                    <li><strong class="text-purple">灵骨剑</strong> — 伤害 8.0 · 攻击施加光灵 3s，水中 15% 穿透 6 点</li>
+                    <li><strong class="text-purple">灵骨刀</strong> — 伤害 8.0 · 攻击施加光灵 3s，水中 15% 双倍伤害</li>
+                    <li><strong class="text-dark-cyan">海刺剑</strong> — 伤害 10.0 · 水中/雨天 +40% 伤害 + 水下呼吸</li>
+                    <li><strong class="text-dark-cyan">海刺刀</strong> — 伤害 12.0 · 水中/雨天 -40% 受伤 + 水下呼吸</li>
+                    <li><strong class="text-purple">蚀骨剑</strong> — 伤害 13.0 · 自带凋零 III</li>
+                    <li><strong class="text-purple">灵刺剑</strong> — 伤害 13.0 · 攻击必穿透 1 点，水中额外 2 点</li>
+                    <li><strong class="text-purple">灵刺刀</strong> — 伤害 14.0 · 水中/雨天伤害 +5</li>
+                    <li><strong class="text-blue">海哭剑</strong> — 伤害 16.0 · 持有时 3 药水被动，攻击发光+疲劳+20% 伤害</li>
+                    <li><strong class="text-blue">海哭刀</strong> — 伤害 16.0 · 持有时 3 药水被动，攻击+45% 伤害(水中+90%)</li>
+                </ul>
+            </div>
+
+            <div class="detail-card">
+                <h3><i class="fas fa-wand-sparkles text-purple"></i> 幻术武器 & 弩</h3>
+                <div style="margin-bottom:8px"><span class="cat-label cat-any">幻术师掉落</span> <span class="cat-label cat-weapon">弩</span></div>
+                <ul>
+                    <li><strong class="text-purple">幻影之刃</strong> — 钻石剑 · 35% 召唤幻影分身(+3真实伤害)，击杀 25% 生成假身吸引怪物</li>
+                    <li><strong class="text-cyan">幻惑法杖</strong> — 烈焰棒 · 30% 使目标失明，右键发射幻术飞弹(10伤害+反胃+失明)</li>
+                    <li><strong class="text-red">狂怒掠夺者之弩</strong> — 弩 · 力量 V + 快速装填 V + 耐久 V + 经验修补 II</li>
+                </ul>
+            </div>
+
+            <div class="detail-card">
+                <h3><i class="fas fa-helmet-safety text-gray"></i> 钢制装备</h3>
+                <div style="margin-bottom:8px"><span class="cat-label cat-armor">盔甲</span> <span class="cat-label cat-weapon">武器</span></div>
+                <ul>
+                    <li><strong>钢剑</strong> — 攻击力 +7</li>
+                    <li><strong>钢头盔</strong> — 护甲 +2, 韧性 +1</li>
+                    <li><strong>钢胸甲</strong> — 护甲 +7, 韧性 +2</li>
+                    <li><strong>钢护腿</strong> — 护甲 +6, 韧性 +2</li>
+                    <li><strong>钢靴子</strong> — 护甲 +3, 韧性 +1</li>
+                    <li><i class="fas fa-info-circle text-cyan"></i> 材料: 生钢 (铁+煤炭) 经熔炉烧制获得钢</li>
+                </ul>
+            </div>
         </div>
     </div>
 </section>
@@ -870,19 +942,25 @@
                     <tr><th>BOSS</th><th>生命值</th><th>特性</th></tr>
                 </thead>
                 <tbody>
-                    <tr><td><span class="text-cyan">急冻树</span></td><td>750</td><td>冰元素 · 火/雷触发双倍伤害 · 冰雹技能</td></tr>
-                    <tr><td><span class="text-red">爆炎树</span></td><td>750</td><td>火元素 · 雷/冰触发双倍伤害 · 火焰弹/横扫</td></tr>
+                    <tr><td><span class="text-cyan">雪人王</span></td><td>700</td><td>冰元素 · 火/雷触发双倍伤害 · 冰雹技能</td></tr>
+                    <tr><td><span class="text-red">烈焰领主</span></td><td>700</td><td>火元素 · 雷/冰触发双倍伤害 · 火焰弹/横扫</td></tr>
                     <tr><td><span class="text-green">史莱姆王</span></td><td>750</td><td>跳跃粉碎攻击 · 半血分裂激怒</td></tr>
-                    <tr><td><span class="text-gray">僵尸巨人</span></td><td>1500</td><td>攻击力 80 · 附带缓慢与击退</td></tr>
-                    <tr><td><span class="text-gold">小僵尸 Double</span></td><td>600 × 2</td><td>两只保护 IV 下界合金套小僵尸 · 长矛 + 剑</td></tr>
+                    <tr><td><span class="text-gray">小僵尸 Double</span></td><td>600 × 2</td><td>两只保护 IV 下界合金套小僵尸 · 长矛 + 剑</td></tr>
+                    <tr><td><span class="text-yellow">宝藏守护者</span></td><td>250</td><td>移速极快 · 冰冻能力 · 掉落月之碎片</td></tr>
+                    <tr><td><span class="text-dark">骷髅王</span></td><td>600</td><td>手持力量 X 神弓 · 每 10 秒召唤箭雨</td></tr>
+                    <tr><td><span class="text-purple">幻术师</span></td><td>500</td><td>力量 X 冲击 III 神弓 · 40% 血量召唤 4 幻术护卫 · 20% 血量降箭雨</td></tr>
+                    <tr><td><span class="text-dark-green">铁骑双雄</span></td><td>125×2 坐骑 / 150 僵尸 / 100 骷髅</td><td>僵尸骑战马冲锋 + 骷髅骑毒蛛远程 · 全套下界合金</td></tr>
+                    <tr><td><span class="text-dark">ShadowWarrior</span></td><td>300</td><td>使用真实玩家皮肤 · 影遁 15 / 幻影斩 10</td></tr>
+                    <tr><td><span class="text-red">熔岩双王</span></td><td>200 烈焰人 / 750 岩浆史莱姆王</td><td>烈焰人火焰弹 10 倍伤害 · 岩浆史莱姆王半血分裂</td></tr>
+                    <tr><td><span class="text-blue">幻翼 · 恼鬼</span></td><td>125 × 2</td><td>隐身 · 免疫远程/火焰/中毒/凋零 · 穿透伤害</td></tr>
                 </tbody>
             </table>
         </div>
         <div style="margin-top:16px; background: var(--bg-card); border:1px solid var(--border); border-radius:10px; padding:16px 20px;">
             <p style="font-size:14px; color:var(--text-dim);">
                 <i class="fas fa-bullseye text-red"></i> <strong>战斗机制：</strong>
-                躯干攻击 ×3 武器伤害 · 核心攻击 ×15 武器伤害 ·
-                元素反应 50% 概率暴露核心
+                躯干攻击转移伤害至核心 · 核心攻击 ×2 大量伤害 ·
+                元素反应暴露核心 · 环境伤害免疫 · 传送门拦截
             </p>
         </div>
     </div>
@@ -903,6 +981,7 @@
                     <li><strong class="text-purple">回春散</strong> — 生命恢复 V 3s (可合成出上品/极品/仙品)</li>
                     <li><strong class="text-red">止血绷带</strong> — 瞬间恢复 6 HP</li>
                     <li><strong class="text-gold">压缩饼干</strong> — 瞬间恢复 20 饱食度</li>
+                    <li><strong class="text-gold">金盾丹</strong> — 获得短暂护盾效果</li>
                 </ul>
             </div>
             <div class="detail-card">
@@ -915,7 +994,7 @@
                 </ul>
             </div>
             <div class="detail-card">
-                <h3><i class="fas-regular fa-drumstick-bite text-gold"></i> 肉干系列</h3>
+                <h3><i class="fas fa-drumstick-bite text-gold"></i> 肉干系列</h3>
                 <ul>
                     <li><strong>肉干</strong> — 恢复 6 饥饿值 + 7.2 饱和度</li>
                     <li><strong>猪肉干</strong> — 恢复 7 饥饿值 + 8 饱和度</li>
@@ -967,8 +1046,8 @@
                 <i class="fas fa-water" style="font-size:48px; color:var(--cyan); margin-bottom:12px;"></i>
                 <p style="color:var(--text-dim); font-size:14px;">在 config.yml 中开启公海世界后，服务端自动加载独立地图。<br>玩家可在其中探索宝藏、挑战守护者，享受海洋冒险。</p>
                 <div class="cmd-wrap" style="margin-top:16px; text-align:left;">
-                    <div class="cmd-line"><span class="cmd">SpawnOpenSea</span>: <span class="arg">false</span>  <span class="desc"># 是否启用</span></div>
-                    <div class="cmd-line"><span class="cmd">AutoResetOpenSeaMap</span>: <span class="arg">false</span>  <span class="desc"># 自动重置</span></div>
+                    <div class="cmd-line"><span class="cmd">SpawnOpenSea</span>: <span class="arg">true</span>  <span class="desc"># 是否启用</span></div>
+                    <div class="cmd-line"><span class="cmd">AutoResetOpenSeaMap</span>: <span class="arg">true</span>  <span class="desc"># 自动重置</span></div>
                     <div class="cmd-line"><span class="cmd">OpenSeaName</span>: <span class="arg">"OpenSea"</span>  <span class="desc"># 世界名</span></div>
                     <div class="cmd-line"><span class="cmd">MapZipName</span>: <span class="arg">"OpenSea.zip"</span>  <span class="desc"># 地图包名</span></div>
                 </div>
@@ -1049,10 +1128,14 @@
                 <tbody>
                     <tr><td><code>/ArmsorPlus help</code></td><td>查看帮助</td></tr>
                     <tr><td><code>/ArmsorPlus info</code></td><td>插件信息</td></tr>
-                    <tr><td><code>/ArmsorPlus guide</code></td><td>获得高级附魔向导书</td></tr>
-                    <tr><td><code>/ArmsorPlus give &lt;item&gt; [amount] [level]</code></td><td>给予物品</td></tr>
+                    <tr><td><code>/ArmsorPlus guide</code></td><td>打开插件主菜单</td></tr>
+                    <tr><td><code>/ArmsorPlus give &lt;item&gt; [amount] [level]</code></td><td>给予物品 (支持所有武器/附魔书/食物/材料)</td></tr>
+                    <tr><td><code>/ArmsorPlus creature</code></td><td>打开生物清单菜单</td></tr>
+                    <tr><td><code>/ArmsorPlus spawn [shadow [玩家名] | captain]</code></td><td>召唤影武者/村民队长</td></tr>
+                    <tr><td><code>/ArmsorPlus bossremove</code></td><td>击杀存活的影武者</td></tr>
                     <tr><td><code>/ArmsorPlus getEnchantmentLevel &lt;enchant&gt;</code></td><td>查看手持物品附魔等级</td></tr>
                     <tr><td><code>/ArmsorPlus removeEnchant &lt;enchant|all&gt;</code></td><td>移除手持物品附魔</td></tr>
+                    <tr><td><code>/ArmsorPlus getBloodCount</code></td><td>查看噬生剑当前血裂数</td></tr>
                     <tr><td><code>/ArmsorPlus reloadmap</code></td><td>重载公海地图</td></tr>
                 </tbody>
             </table>
@@ -1064,7 +1147,7 @@
 <section class="server-support" id="download">
     <div class="container">
         <div class="download-card">
-            <div class="version-tag">当前版本: v0.3-H<sup>+</sup></div>
+            <div class="version-tag">当前版本: v0.3-J<sup>+</sup></div>
             <h3>下载 ArmsorPlus</h3>
             <p>专为 Paper/Purpur 1.21+ 优化的 RPG 增强插件 · 零前置依赖</p>
             <div class="license-info">
